@@ -1,0 +1,121 @@
+<!-- Conecta este componente con el controlador APEX -->
+<aura:component controller="ContactController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+        
+    <aura:attribute name="contacts" type="Contact[]"/>
+
+    <aura:attribute name="newContact" type="Contact"
+         default="{ 'sobjectType': 'Contact',                     
+                  		'IDCharacter__c': '' ,
+                  		'LastName': '',
+                  		'Height__c': '' ,
+                  		'Gender__c': '' ,
+                  		'Haircolor__c': '' ,
+                  		'Eyecolor__c': '' ,
+                  		'URL__c': '' ,
+                        'Homeworld__c': ''        		 
+                  }"/>
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    
+    <!-- HEADER -->
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <span class="slds-avatar">
+                <abbr class="slds-avatar__initials slds-icon-standard-account" title="company name">MA</abbr>
+			</span>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">My App</h1>
+                <h2 class="slds-text-heading--medium">Personajes de Star Wars</h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / HEADER -->
+    
+    <!-- ///////////////////////////////////////////////////// HASTA ACA OK -->
+    
+    <!-- FORM -->
+    <lightning:layout>
+      <lightning:layoutItem padding="around-small" size="6">
+            
+        <!-- NUEVO CONTACTO -->
+    	<div aria-labelledby="newcontactform">
+            
+        	<!-- RECUADRO PARA ENGLOBAR LOS CAMPOS -->
+            <fieldset class="slds-box slds-theme--default slds-container--small">
+                
+                <legend id="newcontactform" class="slds-text-heading--small slds-p-vertical--medium">
+                  Buscar un personaje
+                </legend>
+                      
+                    <!-- FORM DE CONTACTO -->
+                    <form class="slds-form--stacked">            
+                        
+                        	<lightning:input tyype="number" aura:id="expenseformID" label="ID personaje"
+                                         	 name="expenseamount"                             
+                                             required="true"
+                                         	 value=""/>
+                            <lightning:button label="Buscar"
+                                         	 class="slds-m-top--medium"
+                                             variant="brand"
+                                             onclick="{!c.buscar}"/>
+                        
+                            <lightning:input type="number" aura:id="contactform" label="ID"
+                                             name="expenseamount"
+                                             value="{!v.newContact.IDCharacter__c}"
+                                             messageWhenRangeUnderflow="Ingrese un valor igual o mayor a 1."
+                                         	 required="true"/>
+                            <lightning:input aura:id="contactform" label="Nombre"
+                                             name="expensename"
+                                             value="{!v.newContact.LastName}"
+                                             required="true"/>
+                            <lightning:input type="number" aura:id="contactform" label="Altura"
+                                             name="expenseamount"
+                                             value="{!v.newContact.Height__c}"
+                                             messageWhenRangeUnderflow="Ingrese un valor mayor a 0"
+                                             required="true"/>
+                            <lightning:input aura:id="contactform" label="Genero"
+                                             name="expensename"
+                                             value="{!v.newContact.Gender__c}"
+                                             required="true"/>
+                            <lightning:input aura:id="contactform" label="Color de Cabello"
+                                             name="expenseclient"
+                                             value="{!v.newContact.Haircolor__c}"
+                                             required="true"/>
+                            <lightning:input aura:id="contactform" label="Color de ojos"
+                                             name="expenseclient"
+                                             value="{!v.newContact.Eyecolor__c}"
+                                             required="true"/>
+                            <lightning:input type="url" aura:id="contactform" label="URL" 
+                                             name="expenseclient" 
+                                             placeholder="Ingrese una URL valida..."  
+                                             value="{!v.newContact.URL__c}"
+                                             required="true"/>
+                            <lightning:input aura:id="contactform" label="Planeta"
+                                             name="expenseclient"
+                                             value="{!v.newContact.Homeworld__c}"
+                                             required="true"/>
+                        
+                            <lightning:button label="Guardar"
+                                             aura:id="saveButton"
+                                             class="slds-m-top--medium"
+                                             variant="brand"
+                                             onclick="{!c.guardar}"                                              
+                                             disabled="true"/>
+                    </form>
+                      <!-- / FORM DE CONTACTO -->
+      
+            </fieldset>
+     	 <!-- / RECUADRO PARA ENGLOBAR LOS CAMPOS -->
+    	</div>
+          
+    	<!-- / NUEVO CONTACTO -->            
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / FORM -->
+    
+    <c:contactsList contacts="{!v.contacts}"/>
+
+</aura:component>
