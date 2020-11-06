@@ -1,0 +1,55 @@
+public with sharing class ContactController {
+    
+   	// Llamada a la API
+    @AuraEnabled
+   	public static String llamarALaApi(String valorABuscar, String dato) {
+        
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://swapi.dev/api/'+ dato + '/' + valorABuscar +'/');    
+        request.setMethod('GET');
+        request.setHeader('Accept', 'application/json');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        HttpResponse response = http.send(request);
+        
+        String respuesta;		 
+        
+        // Si la solicitud es exitosa, analizo la respuesta JSON.
+        if (response.getStatusCode() == 200) {            
+            respuesta = response.getBody();           
+        }
+        else {
+            //c1.add('No se recibio la respuesta');        
+        }        
+        return respuesta;
+    }
+    
+    // Obtener contactos
+    @AuraEnabled
+   	public static List<Contact> getContacts() {
+        
+        return [SELECT IDCharacter__c, LastName, Height__c, Gender__c, HairColor__c, EyeColor__c,
+                       URL__c, Homeworld__c 
+                FROM Contact];
+    }
+    
+    // Guardar contactos
+    @AuraEnabled
+    public static Contact saveContact(Contact contact) {    
+        // En la plataforma tilde la casilla de marcar este campo como id externo
+        // asi me permite saber que ya existe y no guardarlo        
+              Contact contacto = new Contact(Height__c= contact.Height__c,
+                                       Eyecolor__c= contact.Eyecolor__c,
+                                       URL__c= contact.URL__c,
+                                       Haircolor__c=contact.Haircolor__c,
+                                       Gender__c= contact.Gender__c, 
+                                       IDCharacter__c= contact.IDCharacter__c,
+                                       LastName= contact.Name,
+                                       Homeworld__c= contact.Homeworld__c);      
+        
+        //  upsert contact Contact.Fields.IDCharacter__c;
+        Insert contacto;
+        return contact;
+    }
+
+}
