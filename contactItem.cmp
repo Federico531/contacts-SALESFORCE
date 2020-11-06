@@ -1,0 +1,37 @@
+<aura:component>
+    
+    <aura:attribute name="contact" type="Contact"/>
+
+    <lightning:card class="slds-theme--success"	>
+        <p class="slds-box slds-text-heading_small">
+            <lightning:icon iconName="standard:event" alternativeText="Contact"/>
+        </p>
+        
+        <p class="slds-p-horizontal--small">
+            ID: {!v.contact.IDCharacter__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Nombre: {!v.contact.LastName}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Altura: {!v.contact.Height__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Genero: {!v.contact.Gender__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Color de cabello: {!v.contact.Haircolor__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Color de ojos: {!v.contact.Eyecolor__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            URL: {!v.contact.URL__c}
+        </p>
+        <p class="slds-p-horizontal--small">
+            Planeta: {!v.contact.Homeworld__c}
+        </p>
+        
+    </lightning:card>
+    
+</aura:component>
