@@ -1,0 +1,21 @@
+<!-- Va a contener la lista de los contactos que voy ingresando -->
+<aura:component>
+    
+    <aura:attribute name="contacts" type="Contact[]"/>
+    
+    <lightning:card title="Contactos">
+        
+        <p class="slds-p-horizontal--small">
+            
+            <!-- Itera sobre el array de contactos y va creando un contactItem -->
+            <aura:iteration items="{!v.contacts}" var="contact">
+                
+                <!--  "renderiza" un contactItem-->
+                <c:contactItem contact="{!contact}"/>
+                
+            </aura:iteration>
+            
+        </p>
+        
+    </lightning:card>
+</aura:component>
